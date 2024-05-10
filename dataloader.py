@@ -46,7 +46,7 @@ class ShapeDataset(Dataset):
         return tensor, label
 
     def load_data(self, split):
-      with open('/content/labels_mappings.json', 'r') as json_labels:
+      with open('/content/Silhouette_based_recog/labels_mappings.json', 'r') as json_labels:
         label_mapping = json.load(json_labels)
       if split == 'train':
         self.split_path = os.path.join(self.data_dir, 'train')

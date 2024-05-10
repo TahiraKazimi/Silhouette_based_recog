@@ -154,9 +154,9 @@ def pointrend_head(model, batched_outputs, batched_images, gt_labels, device):
 
 
 def get_relevant_mask(results, coco_metadata, gt_labels):
-  with open("/content/labels_mappings_reversed.json", 'r') as f:
+  with open("/content/Silhouette_based_recog/labels_mappings_reversed.json", 'r') as f:
     labels_names = json.load(f)
-  with open("/content/co3d_to_coco.json", 'r') as fd:
+  with open("/content/Silhouette_based_recog/co3d_to_coco.json", 'r') as fd:
     coco_mapping = json.load(fd)
   pred_class = results.pred_classes
   l = str(int(gt_labels))
