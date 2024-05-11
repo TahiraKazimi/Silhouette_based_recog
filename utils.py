@@ -60,6 +60,8 @@ def pointrend_head(model, batched_outputs, batched_images, gt_labels, device):
   batched_final_masks = []
   ind = 0
   undetected_inds = []
+  with open("/content/Silhouette_based_recog/labels_mappings_reversed.json", 'r') as f:
+    labels_names = json.load(f)
   for i , element in enumerate(batched_outputs):
         coarse_masks_logits = element['masks']
         #No detection boxes 
@@ -128,7 +130,7 @@ def pointrend_head(model, batched_outputs, batched_images, gt_labels, device):
               )
         detected_instances = [element['instance']]
         mask_rcnn_inference(mask_logits, detected_instances)
-        results = detector_postprocess(detected_instances[0], img_height, img_width, 0.85) # for classifier
+        results = detector_postprocess(detected_instances[0], img_height, img_width, 0.9) # for classifier
         binary_masks = results.pred_masks
         confidence_score = 0.0
         num_of_masks = binary_masks.shape[0]
@@ -137,8 +139,9 @@ def pointrend_head(model, batched_outputs, batched_images, gt_labels, device):
         masked_array = masked_array.cpu().numpy()
         masked_image = (masked_array * 255).astype(np.uint8)
         masked_image_bgr = cv2.cvtColor(masked_image, cv2.COLOR_GRAY2BGR)
-        cv2.imwrite(os.path.join('/content/', f'mask_{ind + 1}_mask_binary.png'), masked_image_bgr)
-        print(f"foreground mask writte to {os.path.join('/content/', f'mask_{ind + 1}_mask_binary.png')}")
+        l = str(int(gt_labels[i]))
+        cv2.imwrite(os.path.join('/content/', f'mask_{labels_names[l]}_{ind + 1}_mask_binary.png'), masked_image_bgr)
+        print(f"foreground mask writte to {os.path.join('/content/', f'mask_{labels_names[l]}_{ind + 1}_mask_binary.png')}")
         ind += 1
         if device == 'cuda':
            masked_image = torch.tensor(masked_image_bgr).to('cuda')
