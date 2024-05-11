@@ -130,7 +130,7 @@ def pointrend_head(model, batched_outputs, batched_images, gt_labels, device, th
               )
         detected_instances = [element['instance']]
         mask_rcnn_inference(mask_logits, detected_instances)
-        results = detector_postprocess(detected_instances[0], img_height, img_width, 0.75) # for classifier
+        results = detector_postprocess(detected_instances[0], img_height, img_width, threshold) # for classifier
         binary_masks = results.pred_masks
         confidence_score = 0.0
         num_of_masks = binary_masks.shape[0]
