@@ -56,7 +56,7 @@ def parse_data(outputs):
   return batched_outputs, pred_class_list, pred_scores
 
 
-def pointrend_head(model, batched_outputs, batched_images, gt_labels, device):
+def pointrend_head(model, batched_outputs, batched_images, gt_labels, device, threshold=0.5):
   batched_final_masks = []
   ind = 0
   undetected_inds = []
@@ -130,7 +130,7 @@ def pointrend_head(model, batched_outputs, batched_images, gt_labels, device):
               )
         detected_instances = [element['instance']]
         mask_rcnn_inference(mask_logits, detected_instances)
-        results = detector_postprocess(detected_instances[0], img_height, img_width, 0.9) # for classifier
+        results = detector_postprocess(detected_instances[0], img_height, img_width, 0.75) # for classifier
         binary_masks = results.pred_masks
         confidence_score = 0.0
         num_of_masks = binary_masks.shape[0]
