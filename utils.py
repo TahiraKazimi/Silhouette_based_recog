@@ -56,7 +56,7 @@ def parse_data(outputs):
   return batched_outputs, pred_class_list, pred_scores
 
 
-def pointrend_head(model, batched_outputs, batched_images, gt_labels, device, threshold=0.5, write_enabled=False):
+def pointrend_head(model, batched_outputs, batched_images, gt_labels, device, threshold=0.5, write_enabled=False, frame_counter=0):
   os.makedirs('/content/generated_masks', exist_ok=True)
   batched_final_masks = []
   ind = 0
@@ -142,8 +142,8 @@ def pointrend_head(model, batched_outputs, batched_images, gt_labels, device, th
         masked_image_bgr = cv2.cvtColor(masked_image, cv2.COLOR_GRAY2BGR)
         l = str(int(gt_labels[i]))
         if write_enabled:
-          cv2.imwrite(os.path.join('/content/generated_masks/', f'mask_{labels_names[l]}_{i + 1}_mask_binary.png'), masked_image_bgr)
-          print(f"foreground mask writte to {os.path.join('/content/', f'mask_{labels_names[l]}_{i + 1}_mask_binary.png')}")
+          cv2.imwrite(os.path.join('/content/generated_masks/', f'mask_{labels_names[l]}_{frame_counter}_mask_binary.png'), masked_image_bgr)
+          print(f"foreground mask writte to {os.path.join('/content/', f'mask_{labels_names[l]}_{frame_counter}_mask_binary.png')}")
         if device == 'cuda':
            masked_image = torch.tensor(masked_image_bgr).to('cuda')
         else:
