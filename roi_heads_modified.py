@@ -18,7 +18,7 @@ from detectron2.modeling.poolers import ROIPooler
 from detectron2.modeling.proposal_generator.proposal_utils import add_ground_truth_to_proposals
 from detectron2.modeling.sampling import subsample_labels
 from detectron2.modeling import build_box_head
-from .fast_rcnn_modified import FastRCNNOutputLayers
+from fast_rcnn_modified import FastRCNNOutputLayers
 # from detectron2.modeling import FastRCNNOutputLayers
 from detectron2.modeling import build_keypoint_head
 from detectron2.modeling import build_mask_head

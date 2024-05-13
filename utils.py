@@ -58,18 +58,18 @@ def parse_data(outputs):
 
 def pointrend_head(model, batched_outputs, batched_images, gt_labels, device, threshold=0.5, write_enabled=False, frame_counter=0, split='train'):
   if split=='train':
-    os.makedirs('/content/train_generated_masks', exist_ok=True)
-    saved_path = '/content/train_generated_masks'
+    os.makedirs('/home/dark/tahira/train_generated_masks', exist_ok=True)
+    saved_path = '/home/dark/tahira/train_generated_masks'
   elif split == 'val':
-     os.makedirs('/content/val_generated_masks', exist_ok=True)
-     saved_path = '/content/val_generated_masks'
+     os.makedirs('/home/dark/tahira/val_generated_masks', exist_ok=True)
+     saved_path = '/home/dark/tahira/val_generated_masks'
   else:
-     os.makedirs('/content/test_generated_masks', exist_ok=True)
-     saved_path = '/content/test_generated_masks'
+     os.makedirs('/home/dark/tahira/test_generated_masks', exist_ok=True)
+     saved_path = '/home/dark/tahira/test_generated_masks'
   batched_final_masks = []
   ind = 0
   undetected_inds = []
-  with open("/content/Silhouette_based_recog/labels_mappings_reversed.json", 'r') as f:
+  with open("/home/dark/tahira/Silhouette_based_recog/labels_mappings_reversed.json", 'r') as f:
     labels_names = json.load(f)
   for i , element in enumerate(batched_outputs):
         coarse_masks_logits = element['masks']
@@ -166,12 +166,12 @@ def pointrend_head(model, batched_outputs, batched_images, gt_labels, device, th
 
 
 def get_relevant_mask(results, coco_metadata, gt_labels):
-  with open("/content/Silhouette_based_recog/labels_mappings_reversed.json", 'r') as f:
-    labels_names = json.load(f)
-  with open("/content/Silhouette_based_recog/co3d_to_coco.json", 'r') as fd:
-    coco_mapping = json.load(fd)
-  pred_class = results.pred_classes
-  l = str(int(gt_labels))
+  # with open("/home/dark/tahira/Silhouette_based_recog/labels_mappings_reversed.json", 'r') as f:
+  #   labels_names = json.load(f)
+  # with open("/home/dark/tahira/Silhouette_based_recog/co3d_to_coco.json", 'r') as fd:
+  #   coco_mapping = json.load(fd)
+  # pred_class = results.pred_classes
+  # l = str(int(gt_labels))
 #   for i, pred_c in enumerate(pred_class):
 #     if coco_metadata.thing_classes[pred_c] =='donut' and coco_mapping[labels_names[l]] =='cake':
 #       return results.pred_masks[i, :, :]
