@@ -243,9 +243,13 @@ class PointRendMaskHeadModified(nn.Module):
             # losses["loss_mask_point"] = roi_mask_point_loss(point_logits, instances, point_labels)
             # return losses
         else:
+            # pred_boxes = [x.pred_boxes for x in instances]
+            # coarse_mask = self.coarse_head(self._roi_pooler(features, pred_boxes))
+            # return self._subdivision_inference(features, coarse_mask, instances)
             pred_boxes = [x.pred_boxes for x in instances]
             coarse_mask = self.coarse_head(self._roi_pooler(features, pred_boxes))
-            return self._subdivision_inference(features, coarse_mask, instances)
+            losses = {"loss_mask": 0 }
+            return coarse_mask, losses
 
     def _roi_pooler(self, features: List[Tensor], boxes: List[Boxes]):
         """
