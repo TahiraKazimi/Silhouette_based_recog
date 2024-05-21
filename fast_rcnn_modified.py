@@ -195,7 +195,7 @@ class FastRCNNOutputLayers(nn.Module):
         box2box_transform,
         num_classes: int,
         test_score_thresh: float = 0.0,
-        test_nms_thresh: float = 0.4,
+        test_nms_thresh: float = 0.6,
         test_topk_per_image: int = 50,
         cls_agnostic_bbox_reg: bool = False,
         smooth_l1_beta: float = 0.0,
